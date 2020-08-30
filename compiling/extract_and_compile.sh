@@ -6,12 +6,10 @@
 number=$1
 
 tar -zxf "NthPrime.tgz"
-cd ./NthPrime
+cd ./NthPrime || exit
 
-gcc *.c -o NthPrime
+gcc ./*.c -o NthPrime
 # ./NthPrime 5
-./NthPrime $1
+./NthPrime "$number"
 # ./NthPrime 103
 
-cd ..
-rm -rf "$NthPrime"
