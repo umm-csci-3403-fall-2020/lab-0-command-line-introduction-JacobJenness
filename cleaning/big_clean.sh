@@ -6,22 +6,20 @@
 # Creates the working directory "here"
 tar_file=$1
 SCRATCH=$(mktemp -d)
-base=$(basename "$SCRATCH/$tar_file" .tgz)
+base=$(basename "$tar_file" .tgz)
 here=$(pwd)
-# echo $tar_file $SCRATCH $base $here
 
 # Extracts tar_file into SCRATCH
-tar -zxf "$tar_file" -C "$SCRATCH"
-# ls $SCRATCH/$base
+tar -xzf "$tar_file" -C "$SCRATCH"
+
+cd "$SCRATCH" || exit
 
 # Finds all instances of "DELETE ME!" in SCRATCH and deletes them
-grep -Rl "DELETE ME!" "$SCRATCH" | xargs rm
-# ls $SCRATCH/$base
+grep -Rl "DELETE ME!" . | xargs rm
+
 
 # Creates a new tar file with the cleaned files
-cd "$SCRATCH"
-tar -zcf cleaned_"$tar_file" "$SCRATCH/$base"
-ls $SCRATCH/$base
+tar -zcf cleaned_"$tar_file" "$base"
 
 # Move the new tar file into the pwd
 mv cleaned_"$tar_file" $here
