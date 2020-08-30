@@ -22,6 +22,6 @@ grep -Rl "DELETE ME!" . | xargs rm
 tar -zcf cleaned_"$tar_file" "$base"
 
 # Move the new tar file into the pwd
-mv cleaned_"$tar_file" $here
-cd "$here"
+mv cleaned_"$tar_file" "$here"
+cd "$here" || exit
 
